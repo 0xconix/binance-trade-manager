@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    color: white;
+}
+
+.grid-container {
+    margin-left: 1%;
+    margin-right: 1%;
+    display: grid;
+    grid-template-areas:
+    'tradingview tradingview tradingview scenario'
+    'tradingview tradingview tradingview scenario'
+    'scenarios scenarios scenarios scenarios';
+    background-color: red;
+    gap: 10px;
+    height: 100vh;
+}
+
+.tradingview-container {
+    grid-area: tradingview;
+}
+
+#tradingview_d366c {
+    height: 100%;
+}
+
+.scenario-container {
+    grid-area: scenario;
+    background-color: blue;
+}
+
+.scenarios-container {
+    grid-area: scenarios;
+    background-color: yellow;
+}
+
+.input-rows {
+    display: block;
+}
+
+.input-scenario {
+}

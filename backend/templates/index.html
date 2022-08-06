@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block head %}
+<title>toto</title>
+{% endblock %} {% block body %}
+<h1>Template</h1>
+<form action="/" method="POST">
+  <input type="text" name="content" id="content" />
+  <input type="submit" value="Add Task" />
+</form>
+{% endblock %}

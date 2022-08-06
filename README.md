@@ -42,3 +42,6 @@ Table trade {
   fee float
 }
 ```
+
+## Links
+[user-data-stream](https://github.com/binance/binance-spot-api-docs/blob/master/user-data-stream.md)

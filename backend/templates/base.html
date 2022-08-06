@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <div class="grid-container">
+      <div class="tradingview-container tradingview-widget-container">
+        <!-- TradingView Widget BEGIN -->
+        <div id="tradingview_d366c"></div>
+        <div class="tradingview-widget-copyright">
+          <a
+            href="https://www.tradingview.com/symbols/BTCUSDT/?exchange=BINANCE"
+            rel="noopener"
+            target="_blank"
+            ><span class="blue-text">BTCUSDT Chart</span></a
+          >
+          by TradingView
+        </div>
+        <script
+          type="text/javascript"
+          src="https://s3.tradingview.com/tv.js"
+        ></script>
+        <script type="text/javascript">
+          new TradingView.widget({
+            autosize: true,
+            symbol: "BINANCE:BTCUSDT",
+            interval: "240",
+            timezone: "Europe/Paris",
+            theme: "dark",
+            style: "1",
+            locale: "en",
+            toolbar_bg: "#f1f3f6",
+            enable_publishing: false,
+            hide_side_toolbar: false,
+            save_image: false,
+            studies: ["BB@tv-basicstudies", "MASimple@tv-basicstudies"],
+            container_id: "tradingview_d366c",
+          });
+        </script>
+        <!-- TradingView Widget END -->
+      </div>
+
+      <div class="scenario-container">
+        <form action="/" method="POST">
+          <div class="input-rows">
+            <div class="input-scenario">
+              <label>Pair</label>
+              <input type="text" name="pair" id="pair" value="BTCUSDT" />
+            </div>
+            <div class="input-scenario">
+              <label>Price</label>
+              <input
+                type="text"
+                name="initial_price"
+                id="initial_price"
+                value="0.0"
+              />
+            </div>
+            <div class="input-scenario">
+              <label>Amount</label>
+              <input type="text" name="amount" id="amount" value="0.0" />
+            </div>
+            <div class="input-scenario">
+              <label>SL</label>
+              <input type="text" name="sl" id="sl" value="0.0" />
+            </div>
+            <div class="input-scenario">
+              <label>SL UT</label>
+              <select name="sl_ut" id="sl_ut">
+                <option value="5m">5m</option>
+                <option value="15m">15m</option>
+                <option value="30m">30m</option>
+                <option value="1h">1h</option>
+                <option value="2h">2h</option>
+                <option value="4h">4h</option>
+                <option value="1d">1d</option>
+                <option value="1w">1w</option>
+                <option value="1M">1M</option>
+              </select>
+            </div>
+            <div class="input-scenario">
+              <label>TP1 + SL BE</label>
+              <input type="checkbox" name="sl_be" id="sl_be" />
+            </div>
+            <div class="input-scenario">
+              <label>TP1</label>
+              <input type="text" name="tp1" id="tp1" value="0.0" />
+            </div>
+            <div class="input-scenario">
+              <label>TP1 %</label>
+              <input
+                type="text"
+                name="tp1_percent"
+                id="tp1_percent"
+                value="0.0"
+              />
+            </div>
+            <div class="input-scenario">
+              <label>TP2</label>
+              <input type="text" name="tp2" id="tp2" value="0.0" />
+            </div>
+            <div class="input-scenario">
+              <label>TP2 %</label>
+              <input
+                type="text"
+                name="tp2_percent"
+                id="tp2_percent"
+                value="0.0"
+              />
+            </div>
+            <div class="input-scenario">
+              <label>TP3</label>
+              <input type="text" name="tp3" id="tp3" value="0.0" />
+            </div>
+            <div class="input-scenario">
+              <label>TP3 %</label>
+              <input
+                type="text"
+                name="tp3_percent"
+                id="tp3_percent"
+                value="0.0"
+              />
+            </div>
+            <input type="submit" value="Validate scenario" />
+          </div>
+        </form>
+      </div>
+
+      <div class="scenarios-container"></div>
+    </div>
+
+    {% block body %}{% endblock %}
+  </body>
+</html>
