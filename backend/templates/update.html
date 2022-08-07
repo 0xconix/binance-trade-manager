@@ -1,12 +1,12 @@
 {% extends 'base.html' %} {% block head %}
-<title>toto</title>
+<title>Update</title>
 {% endblock %}
 {% block scenario %}
 <form action="/" method="POST">
   <div class="input-rows">
     <div class="input-scenario">
       <label>Pair</label>
-      <input type="text" name="pair" id="pair" value="BTCUSDT" />
+      <input type="text" name="pair" id="pair" value="{{scenario.pair}}" />
     </div>
     <label>Order type</label>
     <select name="order_type" id="order_type">
@@ -20,16 +20,16 @@
         type="text"
         name="initial_price"
         id="initial_price"
-        value="0.0"
+        value="{{scenario.initial_price}}"
       />
     </div>
     <div class="input-scenario">
       <label>Amount</label>
-      <input type="text" name="amount" id="amount" value="0.0" />
+      <input type="text" name="amount" id="amount" value="{{scenario.amount}}" />
     </div>
     <div class="input-scenario">
       <label>SL</label>
-      <input type="text" name="sl_price" id="sl_price" value="0.0" />
+      <input type="text" name="sl_price" id="sl_price" value="{{scenario.sl_price}}" />
     </div>
     <div class="input-scenario">
       <label>SL type</label>
@@ -58,7 +58,7 @@
     </div>
     <div class="input-scenario">
       <label>TP1</label>
-      <input type="text" name="tp1_price" id="tp1_price" value="0.0" />
+      <input type="text" name="tp1_price" id="tp1_price" value="{{scenario.tp1_price}}" />
     </div>
     <div class="input-scenario">
       <label>TP1 %</label>
@@ -66,12 +66,12 @@
         type="text"
         name="tp1_percent"
         id="tp1_percent"
-        value="0.0"
+        value="{{scenario.tp1_percent}}"
       />
     </div>
     <div class="input-scenario">
       <label>TP2</label>
-      <input type="text" name="tp2_price" id="tp2_price" value="0.0" />
+      <input type="text" name="tp2_price" id="tp2_price" value="{{scenario.tp2_price}}" />
     </div>
     <div class="input-scenario">
       <label>TP2 %</label>
@@ -79,12 +79,12 @@
         type="text"
         name="tp2_percent"
         id="tp2_percent"
-        value="0.0"
+        value="{{scenario.tp2_percent}}"
       />
     </div>
     <div class="input-scenario">
       <label>TP3</label>
-      <input type="text" name="tp3_price" id="tp3_price" value="0.0" />
+      <input type="text" name="tp3_price" id="tp3_price" value="{{scenario.tp3_price}}" />
     </div>
     <div class="input-scenario">
       <label>TP3 %</label>
@@ -92,7 +92,7 @@
         type="text"
         name="tp3_percent"
         id="tp3_percent"
-        value="0.0"
+        value="{{scenario.tp3_price}}"
       />
     </div>
     <input type="submit" value="Validate scenario" />

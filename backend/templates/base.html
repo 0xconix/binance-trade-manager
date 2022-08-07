@@ -39,7 +39,55 @@
         <!-- TradingView Widget END -->
       </div>
       <div class="scenarios-container">
-        {% block scenario_table %}{% endblock %}
+        {% block scenario_table %}
+        <h1 style="text-align: center">Scenarios</h1>
+        {% if scenarios|length < 1 %}
+        <h4 style="text-align: center">There are no scenarios.</h4>
+        {% else %}
+        <table>
+          <tr>
+            <th>Date</th>
+            <th>Scenario</th>
+            <th>Pair</th>
+            <th>Order Type</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th>TP1</th>
+            <th>%</th>
+            <th>TP2</th>
+            <th>%</th>
+            <th>TP3</th>
+            <th>%</th>
+            <th>SL</th>
+            <th>SL UT</th>
+            <th>SL BE</th>
+          </tr>
+          {% for scenario in scenarios %}
+          <tr>
+            <td>{{ scenario.date_created.date() }}</td>
+            <td>{{ scenario.id }}</td>
+            <td>{{ scenario.pair }}</td>
+            <td>{{ scenario.order_type }}</td>
+            <td>{{ scenario.amount }}</td>
+            <td>{{ scenario.initial_price }}</td>
+            <td>{{ scenario.tp1_price }}</td>
+            <td>{{ scenario.tp1_percent }}</td>
+            <td>{{ scenario.tp2_price }}</td>
+            <td>{{ scenario.tp2_percent }}</td>
+            <td>{{ scenario.tp3_price }}</td>
+            <td>{{ scenario.tp3_percent }}</td>
+            <td>{{ scenario.sl_price }}</td>
+            <td>{{ scenario.sl_ut }}</td>
+            <td>{{ scenario.sl_be }}</td>
+            <td>
+              <a href="/close/{{scenario.id}}">Close</a>
+              <br />
+              <a href="/update/{{scenario.id}}">Update</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% endif %} {% endblock %}
       </div>
       <div class="scenario-container">{% block scenario %}{% endblock %}</div>
     </div>

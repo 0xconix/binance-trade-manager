@@ -49,57 +49,76 @@ class Scenario(db.Model):
     def __repr__(self) -> str:
         return f'<Scenario {self.id}>'
 
-@app.route('/update/<int:id>')
+def get_params(request):
+    params = {}
+    params['pair'] = request.form['pair']
+    params['order_type'] = request.form['order_type']
+    params['amount'] = request.form['amount']
+    params['initial_price'] = request.form['initial_price']
+    params['tp1_price'] = request.form['tp1_price']
+    params['tp1_percent'] = request.form['tp1_percent']
+    params['tp2_price'] = request.form['tp2_price']
+    params['tp2_percent'] = request.form['tp2_percent']
+    params['tp3_price'] = request.form['tp3_price']
+    params['tp3_percent'] = request.form['tp3_percent']
+    params['sl_price'] = request.form['sl_price']
+    params['sl_ut'] = request.form['sl_ut']
+    params['sl_be'] = SLType.TP1 if request.form.get('sl_be', False) else SLType.FIXED
+    
+    return params
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
-    print(f'update {id=}')
-    return redirect('/')
+    scenario = Scenario.query.get_or_404(id)
+
+    if request.method == 'POST':
+        params = get_params(request)
+        scenario.pair = params['pair']
+        scenario.order_type = params['order_type']
+        scenario.amount = params['amount']
+        scenario.initial_price = params['initial_price']
+        scenario.tp1_price = params['tp1_price']
+        scenario.tp1_percent = params['tp1_percent']
+        scenario.tp2_price = params['tp2_price']
+        scenario.tp2_percent = params['tp2_percent']
+        scenario.tp3_price = params['tp3_price']
+        scenario.tp3_percent = params['tp3_percent']
+        scenario.sl_price = params['sl_price']
+        scenario.sl_ut = params['sl_ut']
+        scenario.sl_be = params['sl_be']
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue updating your scenario !'
+
+    else:
+        scenarios = Scenario.query.order_by(Scenario.date_created).all()
+        return render_template('update.html', scenarios=scenarios, scenario=scenario)
 
 @app.route('/close/<int:id>')
 def close(id):
-    print(f'close {id=}')
-    return redirect('/')
+    scenario_to_close = Scenario.query.get_or_404(id)
+
+    try:
+        db.session.delete(scenario_to_close)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting that scenario'
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        print(request.form)
-        pair = request.form['pair']
-        order_type = request.form['order_type']
-        amount = request.form['amount']
-        initial_price = request.form['initial_price']
-        tp1_price = request.form['tp1_price']
-        tp1_percent = request.form['tp1_percent']
-        tp2_price = request.form['tp2_price']
-        tp2_percent = request.form['tp2_percent']
-        tp3_price = request.form['tp3_price']
-        tp3_percent = request.form['tp3_percent']
-        sl_price = request.form['sl_price']
-        sl_ut = request.form['sl_ut']
-        sl_be = SLType.TP1 if request.form.get('sl_be', False) else SLType.FIXED
-        
+        new_scenario = Scenario(**get_params(request))
 
-        new_scenario = Scenario(
-            pair = pair,
-            order_type = order_type,
-            amount = amount,
-            initial_price = initial_price,
-            tp1_price = tp1_price,
-            tp1_percent = tp1_percent,
-            tp2_price = tp2_price,
-            tp2_percent = tp2_percent,
-            tp3_price = tp3_price,
-            tp3_percent = tp3_percent,
-            sl_price = sl_price,
-            sl_ut = sl_ut,
-            sl_be = sl_be
-        )
-
-        #try:
-        db.session.add(new_scenario)
-        db.session.commit()
-        return redirect('/')
-        #except:
-        #    return 'There was an issue adding your new scenario !'
+        try:
+            db.session.add(new_scenario)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue adding your new scenario !'
 
     else:
         scenarios = Scenario.query.order_by(Scenario.date_created).all()
