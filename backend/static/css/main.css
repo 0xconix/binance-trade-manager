@@ -32,7 +32,7 @@ body {
 
 .scenarios-container {
     grid-area: scenarios;
-    background-color: yellow;
+    background-color: purple;
 }
 
 .input-rows {
