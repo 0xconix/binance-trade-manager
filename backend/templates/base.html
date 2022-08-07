@@ -39,12 +39,10 @@
         <!-- TradingView Widget END -->
       </div>
       <div class="scenarios-container">
-        {% block scenario_table %}
-        <h1 style="text-align: center">Scenarios</h1>
-        {% if scenarios|length < 1 %}
+        {% block scenario_table %} {% if scenarios|length < 1 %}
         <h4 style="text-align: center">There are no scenarios.</h4>
         {% else %}
-        <table>
+        <table class="scenario-table">
           <tr>
             <th>Date</th>
             <th>Scenario</th>

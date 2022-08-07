@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: sans-serif;
     color: white;
+    background-color: #0d1117;
 }
 
 .grid-container {
@@ -9,11 +10,9 @@ body {
     margin-right: 1%;
     display: grid;
     grid-template-areas:
-    'tradingview tradingview tradingview scenario'
-    'tradingview tradingview tradingview scenario'
-    'scenarios scenarios scenarios scenarios';
-    background-color: red;
-    gap: 10px;
+    'tradingview tradingview tradingview tradingview tradingview scenario'
+    'tradingview tradingview tradingview tradingview tradingview scenario'
+    'scenarios scenarios scenarios scenarios scenarios scenarios';
     height: 100vh;
 }
 
@@ -25,14 +24,13 @@ body {
     height: 100%;
 }
 
+/* scenario */
 .scenario-container {
     grid-area: scenario;
-    background-color: blue;
 }
 
-.scenarios-container {
-    grid-area: scenarios;
-    background-color: purple;
+.scenario-form {
+    margin: 1%;
 }
 
 .input-rows {
@@ -40,4 +38,34 @@ body {
 }
 
 .input-scenario {
+    margin: 1%;
 }
+
+/* END scenario */
+
+/* scenarios */
+.scenarios-container {
+    grid-area: scenarios;
+    margin-top: 1%;
+}
+
+.scenario-table {
+    border-collapse: collapse;
+    color: #8b949e;
+    width: 100%;
+}
+
+.scenario-table td, .scenario-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.scenario-table th {
+    color: white;
+}
+
+.scenario-table tr:nth-child(even){background-color: #161B22;}
+
+.scenario-table tr:hover {color: white;}
+
+/* END scenarios */
