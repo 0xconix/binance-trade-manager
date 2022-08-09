@@ -3,9 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import enum
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-db = SQLAlchemy(app)
+from scenario_manager import ScenarioManager
 
 class OrderType(enum.Enum):
     MARKET = 1
@@ -28,6 +26,10 @@ class SLType(enum.Enum):
     TP3 = 3
     FIXED = 4
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+db = SQLAlchemy(app)
+manager = ScenarioManager()
 
 class Scenario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -117,13 +119,14 @@ def index():
             db.session.add(new_scenario)
             db.session.commit()
             return redirect('/')
-        except:
+        except Exception as e:
+            print(e)
             return 'There was an issue adding your new scenario !'
 
     else:
         scenarios = Scenario.query.order_by(Scenario.date_created).all()
-        print(scenarios)
         return render_template('index.html', scenarios=scenarios)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
